@@ -10,8 +10,8 @@ public class MedalGenerator : MonoBehaviour
     void Start()
     {
         int count = 0;
-        for (float x = -10f; x < 10f; x++) {
-            for (float z = -25f; z < 5f; z += 0.5f) {
+        for (float x = -10f; x < 10f; x += 0.5f) {
+            for (float z = -28f; z < 5f; z += 0.5f) {
                 Instantiate(medalPrefab, new Vector3(x, 5, z), Quaternion.identity);
                 count++;
             }
@@ -22,6 +22,12 @@ public class MedalGenerator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetMouseButtonDown(0))
+        {
+            Vector3 tapPosition = Input.mousePosition;
+            tapPosition.z = 40f; // オブジェクトを配置するZ軸の距離（カメラからの距離）を指定します
+            Vector3 worldPosition = Camera.main.ScreenToWorldPoint(tapPosition);
+            Instantiate(medalPrefab, worldPosition, Quaternion.identity);
+        }
     }
 }
